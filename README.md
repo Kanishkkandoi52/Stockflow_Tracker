@@ -58,3 +58,4 @@ MIT
 
 ## Contributors
 - Kanishk Kandoi
+- Maeve Mullen
