@@ -1,3 +1,4 @@
+// Screen Navigation
 function nextScreen(screenId) {
     const currentScreen = document.querySelector('.screen.active');
     const options = currentScreen.querySelectorAll('.option-button.selected, .broker-card.selected');
@@ -19,6 +20,7 @@ function previousScreen(screenId) {
     document.getElementById(screenId).classList.add('active');
 }
 
+// Option Selection
 function toggleOption(element) {
     element.classList.toggle('selected');
 }
@@ -32,6 +34,7 @@ function toggleBroker(element) {
     element.classList.toggle('selected');
 }
 
+// Tooltip
 function showTooltip(event, text) {
     const tooltip = document.getElementById('tooltip');
     tooltip.textContent = text;
@@ -41,6 +44,30 @@ function showTooltip(event, text) {
     setTimeout(() => { tooltip.style.display = 'none'; }, 3000);
 }
 
+// Finish onboarding and go to dashboard
 function finishOnboarding() {
     nextScreen('screen-dashboard');
 }
+
+// Progress Bar Update
+function updateProgress(screenId) {
+    const screenOrder = [
+        'screen-preferences',
+        'screen-portfolio-category',
+        'screen-goals',
+        'screen-experience',
+        'screen-markets',
+        'screen-risk',
+        'screen-connect',
+        'screen-dashboard'
+    ];
+    const index = screenOrder.indexOf(screenId);
+    const percent = Math.min((index / (screenOrder.length - 1)) * 100, 100);
+
+    document.querySelectorAll('.progress-fill').forEach(fill => {
+        fill.style.width = `${percent}%`;
+    });
+}
+
+// Optional: initialize first screen progress
+updateProgress('screen-preferences');

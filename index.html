@@ -7,246 +7,246 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Onboarding Screens -->
-        <div class="screen active" id="screen-preferences">
-            <div class="onboarding-header">
-                <h1>Welcome to StockFlow</h1>
-                <p>Let's personalize your experience</p>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 20%"></div>
+<div class="container">
+    <!-- Onboarding Screens -->
+    <div class="screen active" id="screen-preferences">
+        <div class="onboarding-header">
+            <h1>Welcome to StockFlow</h1>
+            <p>Let's personalize your experience</p>
+            <div class="progress-bar"><div class="progress-fill" style="width: 20%"></div></div>
+        </div>
+        <div class="question-card">
+            <h2 class="question-title">Set Your Preferences</h2>
+            <p class="question-subtitle">Choose your notification and display preferences</p>
+            <div class="options-grid">
+                <div class="option-button" onclick="toggleOption(this)">
+                    <strong>Daily Market Updates</strong>
+                    <p>Get market summaries every morning</p>
+                </div>
+                <div class="option-button" onclick="toggleOption(this)">
+                    <strong>Price Alerts</strong>
+                    <p>Notify when stocks hit target prices</p>
+                </div>
+                <div class="option-button" onclick="toggleOption(this)">
+                    <strong>Weekly Reports</strong>
+                    <p>Portfolio performance summaries</p>
                 </div>
             </div>
-            <div class="question-card">
-                <h2 class="question-title">Set Your Preferences</h2>
-                <p class="question-subtitle">Choose your notification and display preferences</p>
-                <div class="options-grid">
-                    <div class="option-button" onclick="toggleOption(this)">
-                        <strong>Daily Market Updates</strong>
-                        <p>Get market summaries every morning</p>
-                    </div>
-                    <div class="option-button" onclick="toggleOption(this)">
-                        <strong>Price Alerts</strong>
-                        <p>Notify when stocks hit target prices</p>
-                    </div>
-                    <div class="option-button" onclick="toggleOption(this)">
-                        <strong>Weekly Reports</strong>
-                        <p>Portfolio performance summaries</p>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn" onclick="nextScreen('screen-portfolio-category')">Next</button>
-                </div>
+            <div class="nav-buttons">
+                <button class="btn" onclick="nextScreen('screen-portfolio-category')">Next</button>
             </div>
         </div>
-
-        <div class="screen" id="screen-portfolio-category">
-            <div class="onboarding-header">
-                <h1>Categorize Your Portfolio</h1>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 35%"></div>
-                </div>
-            </div>
-            <div class="question-card">
-                <h2 class="question-title">What type of investor are you?</h2>
-                <div class="options-grid">
-                    <div class="option-button" onclick="selectSingle(this, 'portfolio-type')">
-                        <strong>Conservative</strong>
-                        <p>Focus on capital preservation</p>
-                    </div>
-                    <div class="option-button" onclick="selectSingle(this, 'portfolio-type')">
-                        <strong>Moderate</strong>
-                        <p>Balance growth and stability</p>
-                    </div>
-                    <div class="option-button" onclick="selectSingle(this, 'portfolio-type')">
-                        <strong>Aggressive</strong>
-                        <p>Maximize growth potential</p>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="previousScreen('screen-preferences')">Back</button>
-                    <button class="btn" onclick="nextScreen('screen-goals')">Next</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="screen" id="screen-goals">
-            <div class="onboarding-header">
-                <h1>Investment Goals</h1>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 50%"></div>
-                </div>
-            </div>
-            <div class="question-card">
-                <h2 class="question-title">What are your investment goals?</h2>
-                <p class="question-subtitle">Short-term goals (1-3 years)</p>
-                <div class="options-grid">
-                    <div class="option-button" onclick="toggleOption(this)">Emergency Fund</div>
-                    <div class="option-button" onclick="toggleOption(this)">Major Purchase</div>
-                    <div class="option-button" onclick="toggleOption(this)">Travel</div>
-                </div>
-                <p class="question-subtitle">Long-term goals (5+ years)</p>
-                <div class="options-grid">
-                    <div class="option-button" onclick="toggleOption(this)">Retirement</div>
-                    <div class="option-button" onclick="toggleOption(this)">Home Purchase</div>
-                    <div class="option-button" onclick="toggleOption(this)">Children's Education</div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="previousScreen('screen-portfolio-category')">Back</button>
-                    <button class="btn" onclick="nextScreen('screen-experience')">Next</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="screen" id="screen-experience">
-            <div class="onboarding-header">
-                <h1>Investment Experience</h1>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 65%"></div>
-                </div>
-            </div>
-            <div class="question-card">
-                <h2 class="question-title">How long have you been investing?</h2>
-                <div class="options-grid">
-                    <div class="option-button" onclick="selectSingle(this, 'experience')">
-                        <strong>New to investing</strong>
-                        <p>Less than 1 year</p>
-                    </div>
-                    <div class="option-button" onclick="selectSingle(this, 'experience')">
-                        <strong>Some experience</strong>
-                        <p>1-3 years</p>
-                    </div>
-                    <div class="option-button" onclick="selectSingle(this, 'experience')">
-                        <strong>Experienced</strong>
-                        <p>3-10 years</p>
-                    </div>
-                    <div class="option-button" onclick="selectSingle(this, 'experience')">
-                        <strong>Expert</strong>
-                        <p>10+ years</p>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="previousScreen('screen-goals')">Back</button>
-                    <button class="btn" onclick="nextScreen('screen-markets')">Next</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="screen" id="screen-markets">
-            <div class="onboarding-header">
-                <h1>Market Interests</h1>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 80%"></div>
-                </div>
-            </div>
-            <div class="question-card">
-                <h2 class="question-title">Which markets interest you?</h2>
-                <div class="options-grid">
-                    <div class="option-button" onclick="toggleOption(this)">
-                        <strong>US Stocks</strong><p>NYSE, NASDAQ</p>
-                    </div>
-                    <div class="option-button" onclick="toggleOption(this)">
-                        <strong>International Stocks</strong><p>Global markets</p>
-                    </div>
-                    <div class="option-button" onclick="toggleOption(this)">
-                        <strong>Bonds</strong><p>Fixed income</p>
-                    </div>
-                    <div class="option-button" onclick="toggleOption(this)">
-                        <strong>Cryptocurrency</strong><p>Digital assets</p>
-                    </div>
-                    <div class="option-button" onclick="toggleOption(this)">
-                        <strong>ETFs</strong><p>Exchange-traded funds</p>
-                    </div>
-                    <div class="option-button" onclick="toggleOption(this)">
-                        <strong>Commodities</strong><p>Gold, oil, etc.</p>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="previousScreen('screen-experience')">Back</button>
-                    <button class="btn" onclick="nextScreen('screen-risk')">Next</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="screen" id="screen-risk">
-            <div class="onboarding-header">
-                <h1>Risk Tolerance</h1>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 90%"></div>
-                </div>
-            </div>
-            <div class="question-card">
-                <h2 class="question-title">What's your risk tolerance?</h2>
-                <div class="options-grid">
-                    <div class="option-button" onclick="selectSingle(this, 'risk')">
-                        <strong>Low Risk</strong><p>Preserve capital, accept lower returns</p>
-                    </div>
-                    <div class="option-button" onclick="selectSingle(this, 'risk')">
-                        <strong>Moderate Risk</strong><p>Some fluctuation for better returns</p>
-                    </div>
-                    <div class="option-button" onclick="selectSingle(this, 'risk')">
-                        <strong>High Risk</strong><p>Accept volatility for maximum growth</p>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="previousScreen('screen-markets')">Back</button>
-                    <button class="btn" onclick="nextScreen('screen-connect')">Next</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="screen" id="screen-connect">
-            <div class="onboarding-header">
-                <h1>Connect Your Accounts</h1>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 100%"></div>
-                </div>
-            </div>
-            <div class="question-card">
-                <h2 class="question-title">Connect your investment accounts</h2>
-                <div class="broker-grid">
-                    <div class="broker-card" onclick="toggleBroker(this)">
-                        <div>📈</div><strong>E*TRADE</strong>
-                    </div>
-                    <div class="broker-card" onclick="toggleBroker(this)">
-                        <div>🎯</div><strong>Robinhood</strong>
-                    </div>
-                    <div class="broker-card" onclick="toggleBroker(this)">
-                        <div>💰</div><strong>Fidelity</strong>
-                    </div>
-                    <div class="broker-card" onclick="toggleBroker(this)">
-                        <div>🪙</div><strong>Coinbase</strong>
-                    </div>
-                    <div class="broker-card" onclick="toggleBroker(this)">
-                        <div>📊</div><strong>TD Ameritrade</strong>
-                    </div>
-                    <div class="broker-card" onclick="toggleBroker(this)">
-                        <div>🏦</div><strong>SoFi</strong>
-                    </div>
-                    <div class="broker-card" onclick="toggleBroker(this)">
-                        <div>🌐</div><strong>Public</strong>
-                    </div>
-                    <div class="broker-card" onclick="toggleBroker(this)">
-                        <div>➕</div><strong>Other</strong>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="previousScreen('screen-risk')">Back</button>
-                    <button class="btn" onclick="finishOnboarding()">Complete Setup</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Dashboard -->
-        <div class="screen" id="screen-dashboard">
-            <div class="onboarding-header">
-                <h1>Your Dashboard</h1>
-                <p>Welcome! Here's your portfolio overview.</p>
-            </div>
-        </div>
-
-        <div class="tooltip" id="tooltip"></div>
     </div>
-    <script src="script.js"></script>
+
+    <div class="screen" id="screen-portfolio-category">
+        <div class="onboarding-header">
+            <h1>Categorize Your Portfolio</h1>
+            <div class="progress-bar"><div class="progress-fill" style="width: 35%"></div></div>
+        </div>
+        <div class="question-card">
+            <h2 class="question-title">What type of investor are you?</h2>
+            <div class="options-grid">
+                <div class="option-button" onclick="selectSingle(this, 'portfolio-type')">
+                    <strong>Conservative</strong>
+                    <p>Focus on capital preservation</p>
+                </div>
+                <div class="option-button" onclick="selectSingle(this, 'portfolio-type')">
+                    <strong>Moderate</strong>
+                    <p>Balance growth and stability</p>
+                </div>
+                <div class="option-button" onclick="selectSingle(this, 'portfolio-type')">
+                    <strong>Aggressive</strong>
+                    <p>Maximize growth potential</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="previousScreen('screen-preferences')">Back</button>
+                <button class="btn" onclick="nextScreen('screen-goals')">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-goals">
+        <div class="onboarding-header">
+            <h1>Investment Goals</h1>
+            <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
+        </div>
+        <div class="question-card">
+            <h2 class="question-title">What are your investment goals?</h2>
+            <p class="question-subtitle">Short-term goals (1-3 years)</p>
+            <div class="options-grid">
+                <div class="option-button" onclick="toggleOption(this)">Emergency Fund</div>
+                <div class="option-button" onclick="toggleOption(this)">Major Purchase</div>
+                <div class="option-button" onclick="toggleOption(this)">Travel</div>
+            </div>
+            <p class="question-subtitle">Long-term goals (5+ years)</p>
+            <div class="options-grid">
+                <div class="option-button" onclick="toggleOption(this)">Retirement</div>
+                <div class="option-button" onclick="toggleOption(this)">Home Purchase</div>
+                <div class="option-button" onclick="toggleOption(this)">Children's Education</div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="previousScreen('screen-portfolio-category')">Back</button>
+                <button class="btn" onclick="nextScreen('screen-experience')">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-experience">
+        <div class="onboarding-header">
+            <h1>Investment Experience</h1>
+            <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+        </div>
+        <div class="question-card">
+            <h2 class="question-title">How long have you been investing?</h2>
+            <div class="options-grid">
+                <div class="option-button" onclick="selectSingle(this, 'experience')">
+                    <strong>New to investing</strong><p>Less than 1 year</p>
+                </div>
+                <div class="option-button" onclick="selectSingle(this, 'experience')">
+                    <strong>Some experience</strong><p>1-3 years</p>
+                </div>
+                <div class="option-button" onclick="selectSingle(this, 'experience')">
+                    <strong>Experienced</strong><p>3-10 years</p>
+                </div>
+                <div class="option-button" onclick="selectSingle(this, 'experience')">
+                    <strong>Expert</strong><p>10+ years</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="previousScreen('screen-goals')">Back</button>
+                <button class="btn" onclick="nextScreen('screen-markets')">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-markets">
+        <div class="onboarding-header">
+            <h1>Market Interests</h1>
+            <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
+        </div>
+        <div class="question-card">
+            <h2 class="question-title">Which markets interest you?</h2>
+            <div class="options-grid">
+                <div class="option-button" onclick="toggleOption(this)">
+                    <strong>US Stocks</strong><p>NYSE, NASDAQ</p>
+                </div>
+                <div class="option-button" onclick="toggleOption(this)">
+                    <strong>International Stocks</strong><p>Global markets</p>
+                </div>
+                <div class="option-button" onclick="toggleOption(this)">
+                    <strong>Bonds</strong><p>Fixed income</p>
+                </div>
+                <div class="option-button" onclick="toggleOption(this)">
+                    <strong>Cryptocurrency</strong><p>Digital assets</p>
+                </div>
+                <div class="option-button" onclick="toggleOption(this)">
+                    <strong>ETFs</strong><p>Exchange-traded funds</p>
+                </div>
+                <div class="option-button" onclick="toggleOption(this)">
+                    <strong>Commodities</strong><p>Gold, oil, etc.</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="previousScreen('screen-experience')">Back</button>
+                <button class="btn" onclick="nextScreen('screen-risk')">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-risk">
+        <div class="onboarding-header">
+            <h1>Risk Tolerance</h1>
+            <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
+        </div>
+        <div class="question-card">
+            <h2 class="question-title">What's your risk tolerance?</h2>
+            <div class="options-grid">
+                <div class="option-button" onclick="selectSingle(this, 'risk')">
+                    <strong>Low Risk</strong><p>Preserve capital, accept lower returns</p>
+                </div>
+                <div class="option-button" onclick="selectSingle(this, 'risk')">
+                    <strong>Moderate Risk</strong><p>Some fluctuation for better returns</p>
+                </div>
+                <div class="option-button" onclick="selectSingle(this, 'risk')">
+                    <strong>High Risk</strong><p>Accept volatility for maximum growth</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="previousScreen('screen-markets')">Back</button>
+                <button class="btn" onclick="nextScreen('screen-connect')">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-connect">
+        <div class="onboarding-header">
+            <h1>Connect Your Accounts</h1>
+            <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+        </div>
+        <div class="question-card">
+            <h2 class="question-title">Connect your investment accounts</h2>
+            <div class="broker-grid">
+                <div class="broker-card" onclick="toggleBroker(this)">
+                    <div>📈</div><strong>E*TRADE</strong>
+                </div>
+                <div class="broker-card" onclick="toggleBroker(this)">
+                    <div>🎯</div><strong>Robinhood</strong>
+                </div>
+                <div class="broker-card" onclick="toggleBroker(this)">
+                    <div>💰</div><strong>Fidelity</strong>
+                </div>
+                <div class="broker-card" onclick="toggleBroker(this)">
+                    <div>🪙</div><strong>Coinbase</strong>
+                </div>
+                <div class="broker-card" onclick="toggleBroker(this)">
+                    <div>📊</div><strong>TD Ameritrade</strong>
+                </div>
+                <div class="broker-card" onclick="toggleBroker(this)">
+                    <div>🏦</div><strong>SoFi</strong>
+                </div>
+                <div class="broker-card" onclick="toggleBroker(this)">
+                    <div>🌐</div><strong>Public</strong>
+                </div>
+                <div class="broker-card" onclick="toggleBroker(this)">
+                    <div>➕</div><strong>Other</strong>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="previousScreen('screen-risk')">Back</button>
+                <button class="btn" onclick="finishOnboarding()">Complete Setup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="screen" id="screen-dashboard">
+        <div class="dashboard-header">
+            <h1>Your Dashboard</h1>
+            <p>Welcome! Here's your portfolio overview.</p>
+        </div>
+        <div class="dashboard-content">
+            <div class="dashboard-card" id="portfolio-diversification">
+                <h3>Portfolio Diversification</h3>
+                <div class="chart-placeholder">[Pie Chart]</div>
+            </div>
+            <div class="dashboard-card" id="performance-graph">
+                <h3>Performance</h3>
+                <div class="chart-placeholder">[Performance Graph]</div>
+            </div>
+            <div class="dashboard-card" id="market-highlights">
+                <h3>Market Highlights</h3>
+                <p>Top gainers/losers and personalized insights.</p>
+            </div>
+            <div class="dashboard-card" id="chatbot-dashboard">
+                <h3>Ask your Chatbot</h3>
+                <input type="text" placeholder="Type a question..." />
+            </div>
+        </div>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

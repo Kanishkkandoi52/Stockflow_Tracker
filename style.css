@@ -1,20 +1,19 @@
-/* General Reset & Fonts */
+/* Reset and base styles */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: #f4f6f8;
-    color: #1a1a1a;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
 }
 
-/* Container */
 .container {
-    width: 100%;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -22,14 +21,19 @@ body {
 /* Screens */
 .screen {
     display: none;
-    animation: fadeIn 0.4s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .screen.active {
     display: block;
 }
 
-/* Header */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Onboarding Header */
 .onboarding-header {
     text-align: center;
     margin-bottom: 30px;
@@ -37,51 +41,47 @@ body {
 
 .onboarding-header h1 {
     font-size: 2rem;
+    color: #1a73e8;
     margin-bottom: 5px;
 }
 
 .onboarding-header p {
-    color: #555;
     font-size: 1rem;
+    color: #555;
 }
 
-/* Progress Bar */
 .progress-bar {
-    width: 100%;
-    height: 8px;
+    width: 80%;
+    height: 10px;
     background: #e0e0e0;
-    border-radius: 4px;
-    margin-top: 15px;
+    margin: 15px auto 0;
+    border-radius: 5px;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #4f46e5, #6366f1);
+    background: #1a73e8;
     width: 0;
-    transition: width 0.3s ease;
+    transition: width 0.3s ease-in-out;
 }
 
 /* Question Card */
 .question-card {
     background: #fff;
     padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease;
-}
-
-.question-card:hover {
-    transform: translateY(-3px);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
 }
 
 .question-title {
     font-size: 1.5rem;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .question-subtitle {
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin-bottom: 15px;
     color: #666;
 }
@@ -89,96 +89,84 @@ body {
 /* Options Grid */
 .options-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    margin-bottom: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
-/* Option Button */
 .option-button {
-    background: #f9f9fb;
-    border: 2px solid transparent;
+    background: #f9f9f9;
+    padding: 15px;
     border-radius: 12px;
-    padding: 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    min-height: 120px;
-}
-
-.option-button strong {
-    font-size: 1.1rem;
-    margin-bottom: 5px;
-}
-
-.option-button p {
-    font-size: 0.9rem;
-    color: #555;
+    align-items: flex-start;
 }
 
 .option-button:hover {
-    border-color: #4f46e5;
-    box-shadow: 0 6px 20px rgba(79,70,229,0.2);
-    background: #fff;
+    border-color: #1a73e8;
+    background: #e8f0fe;
 }
 
 .option-button.selected {
-    border-color: #4f46e5;
-    background: #eef2ff;
-    box-shadow: 0 6px 20px rgba(79,70,229,0.25);
+    background: #1a73e8;
+    color: #fff;
+    border-color: #1a73e8;
 }
 
 /* Broker Grid */
 .broker-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 20px;
-    margin-bottom: 25px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .broker-card {
-    background: #f9f9fb;
-    border-radius: 12px;
+    background: #f9f9f9;
     padding: 15px;
+    border-radius: 12px;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
     text-align: center;
+    transition: all 0.2s ease-in-out;
+    border: 2px solid transparent;
 }
 
 .broker-card:hover {
-    background: #fff;
-    box-shadow: 0 6px 20px rgba(79,70,229,0.2);
+    border-color: #1a73e8;
+    background: #e8f0fe;
 }
 
 .broker-card.selected {
-    background: #eef2ff;
-    border: 2px solid #4f46e5;
-    box-shadow: 0 6px 20px rgba(79,70,229,0.25);
+    background: #1a73e8;
+    color: #fff;
+    border-color: #1a73e8;
 }
 
 /* Buttons */
+.nav-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
 .btn {
-    background: #4f46e5;
+    background: #1a73e8;
     color: #fff;
     border: none;
-    padding: 12px 25px;
-    border-radius: 12px;
-    font-size: 1rem;
+    padding: 10px 22px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-left: 10px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease-in-out;
 }
 
 .btn:hover {
-    background: #6366f1;
-    transform: translateY(-2px);
+    background: #1669c1;
 }
 
 .btn-secondary {
@@ -187,31 +175,86 @@ body {
 }
 
 .btn-secondary:hover {
-    background: #d1d1d1;
-    transform: translateY(-2px);
-}
-
-/* Dashboard */
-#screen-dashboard .onboarding-header {
-    text-align: center;
-    padding: 50px 0;
+    background: #cfcfcf;
 }
 
 /* Tooltip */
 .tooltip {
     position: absolute;
-    background: #4f46e5;
+    background: rgba(0,0,0,0.85);
     color: #fff;
-    padding: 6px 12px;
+    padding: 8px 12px;
     border-radius: 8px;
+    display: none;
     font-size: 0.85rem;
     pointer-events: none;
-    display: none;
     z-index: 1000;
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {opacity:0; transform: translateY(10px);}
-    to {opacity:1; transform: translateY(0);}
+/* Dashboard */
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 30px;
 }
+
+.dashboard-header h1 {
+    font-size: 2rem;
+    color: #1a73e8;
+    margin-bottom: 5px;
+}
+
+.dashboard-header p {
+    color: #555;
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.chart-placeholder {
+    background: #e0e0e0;
+    border-radius: 10px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .options-grid, .broker-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .question-card {
+        padding: 15px;
+    }
+    .btn {
+        width: 100%;
+    }
+    .nav-buttons {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+}
+
+/* End of styles.css */
