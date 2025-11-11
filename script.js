@@ -120,6 +120,32 @@ const PIE_DATA = [
   { label: "Cash", value: 10 },
   { label: "Crypto", value: 5 }
 ];
+/* High-DPI, responsive canvas sizing */
+function resizeCanvasToContainer(canvas, aspectRatio = 16/10) {
+  const dpr = window.devicePixelRatio || 1;
+  const parent = canvas.parentElement || canvas;
+  const cssWidth = Math.max(260, Math.floor(parent.clientWidth || 320));
+  const cssHeight = Math.floor(cssWidth / aspectRatio);
+
+  // set CSS size
+  canvas.style.width = cssWidth + 'px';
+  canvas.style.height = cssHeight + 'px';
+
+  // set actual pixel size for crisp drawing
+  canvas.width = Math.floor(cssWidth * dpr);
+  canvas.height = Math.floor(cssHeight * dpr);
+
+  return { w: canvas.width, h: canvas.height, dpr };
+}
+
+/* simple debounce for resize */
+function onResizeDebounced(fn, delay = 120) {
+  let t; 
+  window.addEventListener('resize', () => {
+    clearTimeout(t); t = setTimeout(fn, delay);
+  });
+}
+
 function drawPieChart() {
   const c = document.getElementById('pieChart');
   if (!c) return;
