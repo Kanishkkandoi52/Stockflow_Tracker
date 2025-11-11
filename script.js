@@ -93,6 +93,9 @@ const MOCK_RECS = [
   { t: "IWM",  text: "Small-caps bounce potential on breadth improvement.", pct: "+0.5%" },
   { t: "AAPL", text: "Defensive tech leadership; services growth tailwind.", pct: "+0.8%" }
 ];
+
+const PERF_POINTS = [100, 104, 98, 110, 108, 115, 120, 118, 122, 125];
+
 function renderRecs() {
   const ul = document.getElementById('recsList');
   if (!ul) return;
@@ -194,20 +197,6 @@ function drawPieChart() {
     d._start = start; d._end = end; d._cx = cx; d._cy = cy; d._r = R;
     start = end;
   });
-
-  // click hit test stays the same, but use dpr-corrected coords:
-  c.onclick = (e) => {
-    const rect = c.getBoundingClientRect();
-    const x = (e.clientX - rect.left) * dpr - (c.width/2);
-    const y = (e.clientY - rect.top) * dpr - (c.height/2 - 4*dpr);
-    const dist = Math.sqrt(x*x + y*y);
-    if (dist > PIE_DATA[0]._r) return;
-    const ang = Math.atan2(y,x);
-    let angle = ang + Math.PI; // normalize 0..2π
-    if (angle < 0) angle += 2*Math.PI;
-    const hit = PIE_DATA.find(d => angle >= (d._start+Math.PI/2) && angle <= (d._end+Math.PI/2));
-    if (hit) alert(`${hit.label}: ${hit.value}% of portfolio`);
-  };
 }
 function drawLineChart() {
   const c = document.getElementById('lineChart');
@@ -274,58 +263,7 @@ onResizeDebounced(() => {
   updateProjection();  // this calls drawProjectionChart internally
 });
 
-  c.onclick = (e) => {
-    const rect = c.getBoundingClientRect();
-    const x = e.clientX - rect.left - cx;
-    const y = e.clientY - rect.top - cy;
-    const dist = Math.sqrt(x*x + y*y);
-    if (dist > R) return;
-    const ang = Math.atan2(y,x);
-    const angle = ang < -Math.PI/2 ? ang + Math.PI*2 : ang; // normalize around start
-    const hit = PIE_DATA.find(d => angle>=d._start && angle<=d._end);
-    if (hit) {
-      alert(`${hit.label}: ${hit.value}% of portfolio`);
-    }
-  };
-}
 
-/************ PERFORMANCE LINE (CLICKABLE) ************/
-const PERF_POINTS = [100, 104, 98, 110, 108, 115, 120, 118, 122, 125];
-function drawLineChart() {
-  const c = document.getElementById('lineChart');
-  if (!c) return;
-  const ctx = c.getContext('2d');
-  const w = c.width, h = c.height, pad = 28;
-  ctx.clearRect(0,0,w,h);
-
-  // axes
-  ctx.strokeStyle = '#aab4c3';
-  ctx.beginPath();
-  ctx.moveTo(pad, h-pad); ctx.lineTo(w-pad, h-pad);
-  ctx.moveTo(pad, pad);   ctx.lineTo(pad, h-pad);
-  ctx.stroke();
-
-  const min = Math.min(...PERF_POINTS), max = Math.max(...PERF_POINTS);
-  const xStep = (w - 2*pad) / (PERF_POINTS.length - 1);
-  const y = v => h - pad - ((v - min) / (max - min || 1)) * (h - 2*pad);
-
-  // line
-  ctx.beginPath();
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = '#1a73e8';
-  PERF_POINTS.forEach((v,i) => {
-    const X = pad + i*xStep;
-    const Y = y(v);
-    if (i===0) ctx.moveTo(X,Y); else ctx.lineTo(X,Y);
-  });
-  ctx.stroke();
-
-  c.onclick = () => {
-    alert("Performance detail (mock): last 10 sessions with minor pullbacks and higher highs.");
-  };
-}
-
-/************ MARKET HIGHLIGHTS MODAL ************/
 function openHighlights() {
   document.getElementById('highlightsModal')?.classList.add('show');
   generateSummaries(); // ensure AI text is filled
@@ -387,17 +325,6 @@ function compoundProjection(startBal, monthly, annualPct, years){
   let V = startBal; for (let m=0; m<months; m++){ V = V*(1+r)+monthly; } return V;
 }
 function currency(x){ return x.toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0}); }
-function drawProjectionChart(points){
-  const c = document.getElementById('projectionChart'); if(!c) return;
-  const ctx = c.getContext('2d'); const w=c.width, h=c.height, pad=26;
-  ctx.clearRect(0,0,w,h);
-  ctx.strokeStyle='#aab4c3'; ctx.beginPath();
-  ctx.moveTo(pad,h-pad); ctx.lineTo(w-pad,h-pad); ctx.moveTo(pad,pad); ctx.lineTo(pad,h-pad); ctx.stroke();
-  const ys = points.map(p=>p.y), min=Math.min(...ys), max=Math.max(...ys);
-  const xStep=(w-2*pad)/(points.length-1), y=v=>h-pad-((v-min)/(max-min||1))*(h-2*pad);
-  ctx.beginPath(); ctx.lineWidth=2; ctx.strokeStyle='#1a73e8';
-  points.forEach((p,i)=>{ const X=pad+i*xStep, Y=y(p.y); if(i===0) ctx.moveTo(X,Y); else ctx.lineTo(X,Y); }); ctx.stroke();
-}
 function updateProjection(){
   const s=Number(document.getElementById('startBal')?.value||0);
   const m=Number(document.getElementById('monthlyContrib')?.value||0);
