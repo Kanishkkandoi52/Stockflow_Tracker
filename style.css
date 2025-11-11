@@ -256,5 +256,47 @@ body {
         gap: 10px;
     }
 }
+/* --- small helpers for new cards --- */
+.card-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+
+.tabbar { display: inline-flex; gap: 6px; background: #eef3ff; padding: 4px; border-radius: 10px; }
+.tabbar .tab {
+  border: none; background: transparent; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 0.9rem;
+}
+.tabbar .tab.active { background: #1a73e8; color: #fff; }
+
+.list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; }
+.list li { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ticker { font-weight: 600; }
+.pct { font-variant-numeric: tabular-nums; }
+.pct.up { color: #0a8a36; }
+.pct.down { color: #c62828; }
+.badge { display: inline-block; font-size: 0.75rem; background: #e8f0fe; padding: 2px 8px; border-radius: 999px; margin-left: 6px; }
+.muted { color: #666; }
+.fineprint { color: #888; font-size: 0.8rem; margin-top: 6px; }
+
+.hint-row { display: flex; justify-content: flex-end; margin-top: 8px; }
+.btn-ghost { background: transparent; color: #1a73e8; border: 1px solid #d2e3fc; }
+
+.sms-row { display: flex; gap: 8px; margin-top: 8px; }
+.sms-row input[type="tel"] {
+  flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem;
+}
+
+.summary-text { margin-top: 8px; }
+
+#projected-reach .inputs {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 8px 0 12px;
+}
+#projected-reach label { display: grid; gap: 4px; font-size: 0.9rem; }
+#projected-reach input[type="number"] {
+  padding: 8px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem;
+}
+.projection-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;
+}
+
 
 /* End of styles.css */
