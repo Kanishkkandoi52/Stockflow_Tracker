@@ -256,5 +256,50 @@ body {
         gap: 10px;
     }
 }
+/* Tabs */
+.dash-tabs { display:flex; gap:8px; margin-top:8px; }
+.dash-tab { border:1px solid #d2e3fc; background:#f6f9ff; padding:8px 12px; border-radius:10px; cursor:pointer; }
+.dash-tab.active { background:#1a73e8; color:#fff; border-color:#1a73e8; }
+
+/* Small text helpers */
+.small { font-size: 0.85rem; }
+
+/* Modal */
+.modal { position:fixed; inset:0; display:none; }
+.modal.show { display:block; }
+.modal-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.35); }
+.modal-panel {
+  position:relative; margin:5vh auto; width:min(1100px, 92vw);
+  background:#fff; border-radius:16px; box-shadow:0 24px 60px rgba(0,0,0,0.25); padding:18px;
+}
+.modal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.icon-btn { background:transparent; border:none; font-size:28px; line-height:1; cursor:pointer; }
+
+.modal-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:14px; }
+.modal-card { background:#fafbff; border:1px solid #e6ecff; border-radius:14px; padding:14px; }
+
+.switch { position:relative; display:inline-block; width:48px; height:26px; }
+.switch input { display:none; }
+.slider { position:absolute; cursor:pointer; inset:0; background:#d2d2d2; border-radius:999px; transition: .2s; }
+.slider:before { content:""; position:absolute; height:20px; width:20px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.2s; }
+.switch input:checked + .slider { background:#1a73e8; }
+.switch input:checked + .slider:before { transform: translateX(22px); }
+
+.bullets { margin: 8px 0 0 18px; }
+.bullets li { margin: 4px 0; }
+
+/* Inputs shared */
+.inputs { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; margin: 8px 0 12px; }
+.inputs input { padding:8px 10px; border:1px solid #ddd; border-radius:8px; }
+
+.projection-stats { display:grid; grid-template-columns: repeat(3,1fr); gap:10px; margin-top:8px; }
+
+/* SMS row */
+.sms-row { display:flex; gap:8px; margin-top:10px; }
+.sms-row input[type="tel"] { flex:1; padding:10px 12px; border:1px solid #ddd; border-radius:8px; }
+
+/* Chart hover style (cursor) */
+#pieChart, #lineChart, #projectionChart { cursor: pointer; }
+
 
 /* End of styles.css */
