@@ -149,15 +149,21 @@ function onResizeDebounced(fn, delay = 120) {
 function drawPieChart() {
   const c = document.getElementById('pieChart');
   if (!c) return;
-  const ctx = c.getContext('2d');
-  const cx = c.width/2, cy = c.height/2 - 5, R = Math.min(cx,cy) - 10;
-  ctx.clearRect(0,0,c.width,c.height);
 
-  const total = PIE_DATA.reduce((s,d) => s+d.value, 0);
-  let start = -Math.PI/2; // start at top
+  const { w, h, dpr } = resizeCanvasToContainer(c, 1.2); // a little taller than wide
+  const ctx = c.getContext('2d');
+  ctx.setTransform(1,0,0,1,0,0); // reset
+  ctx.clearRect(0,0,w,h);
+
+  const cx = Math.floor(w/2), cy = Math.floor(h/2) - 4*dpr;
+  const R = Math.min(cx, cy) - 16*dpr;
+
+  const total = PIE_DATA.reduce((s,d)=>s+d.value,0);
+  let start = -Math.PI/2;
   PIE_DATA.forEach((d,i) => {
     const sweep = (d.value/total) * Math.PI*2;
     const end = start + sweep;
+
     // slice
     ctx.beginPath();
     ctx.moveTo(cx,cy);
@@ -166,19 +172,107 @@ function drawPieChart() {
     ctx.fillStyle = `hsl(${i*65},70%,58%)`;
     ctx.fill();
 
-    // label line
+    // leader & label
     const mid = (start+end)/2;
-    const lx = cx + Math.cos(mid) * (R+12);
-    const ly = cy + Math.sin(mid) * (R+12);
-    ctx.beginPath(); ctx.moveTo(cx + Math.cos(mid)*R, cy + Math.sin(mid)*R); ctx.lineTo(lx,ly); ctx.strokeStyle="#999"; ctx.stroke();
-    ctx.font = "12px system-ui, -apple-system, Segoe UI, sans-serif";
-    ctx.fillStyle = "#333";
-    const percent = Math.round((d.value/total)*100);
-    ctx.fillText(`${d.label} ${percent}%`, lx + (Math.cos(mid)>0 ? 6 : -90), ly+4);
+    const lx = cx + Math.cos(mid)*(R+10*dpr);
+    const ly = cy + Math.sin(mid)*(R+10*dpr);
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(mid)*R, cy + Math.sin(mid)*R);
+    ctx.lineTo(lx, ly);
+    ctx.strokeStyle = "#98A2B3";
+    ctx.lineWidth = 1*dpr;
+    ctx.stroke();
+
+    ctx.fillStyle = "#344054";
+    ctx.font = `${12*dpr}px ${getComputedStyle(document.body).fontFamily}`;
+    const pct = Math.round((d.value/total)*100);
+    const alignRight = Math.cos(mid) < 0;
+    ctx.textAlign = alignRight ? "right" : "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText(`${d.label} ${pct}%`, lx + (alignRight ? -6*dpr : 6*dpr), ly);
 
     d._start = start; d._end = end; d._cx = cx; d._cy = cy; d._r = R;
     start = end;
   });
+
+  // click hit test stays the same, but use dpr-corrected coords:
+  c.onclick = (e) => {
+    const rect = c.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * dpr - (c.width/2);
+    const y = (e.clientY - rect.top) * dpr - (c.height/2 - 4*dpr);
+    const dist = Math.sqrt(x*x + y*y);
+    if (dist > PIE_DATA[0]._r) return;
+    const ang = Math.atan2(y,x);
+    let angle = ang + Math.PI; // normalize 0..2π
+    if (angle < 0) angle += 2*Math.PI;
+    const hit = PIE_DATA.find(d => angle >= (d._start+Math.PI/2) && angle <= (d._end+Math.PI/2));
+    if (hit) alert(`${hit.label}: ${hit.value}% of portfolio`);
+  };
+}
+function drawLineChart() {
+  const c = document.getElementById('lineChart');
+  if (!c) return;
+
+  const { w, h, dpr } = resizeCanvasToContainer(c, 16/9);
+  const ctx = c.getContext('2d');
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,w,h);
+
+  const pad = 28*dpr;
+  // axes
+  ctx.strokeStyle = '#AAB4C3';
+  ctx.lineWidth = 1*dpr;
+  ctx.beginPath();
+  ctx.moveTo(pad, h-pad); ctx.lineTo(w-pad, h-pad);
+  ctx.moveTo(pad, pad);   ctx.lineTo(pad, h-pad);
+  ctx.stroke();
+
+  const min = Math.min(...PERF_POINTS), max = Math.max(...PERF_POINTS);
+  const xStep = (w - 2*pad) / (PERF_POINTS.length - 1);
+  const y = v => h - pad - ((v - min) / (max - min || 1)) * (h - 2*pad);
+
+  // line
+  ctx.beginPath();
+  ctx.lineWidth = 2*dpr;
+  ctx.strokeStyle = '#1a73e8';
+  PERF_POINTS.forEach((v,i) => {
+    const X = pad + i*xStep, Y = y(v);
+    if (i === 0) ctx.moveTo(X,Y); else ctx.lineTo(X,Y);
+  });
+  ctx.stroke();
+
+  c.onclick = () => alert("Performance detail (mock).");
+}
+function drawProjectionChart(points){
+  const c = document.getElementById('projectionChart'); if(!c) return;
+
+  const { w, h, dpr } = resizeCanvasToContainer(c, 16/9);
+  const ctx = c.getContext('2d');
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,w,h);
+
+  const pad = 26*dpr;
+  ctx.strokeStyle = '#AAB4C3';
+  ctx.lineWidth = 1*dpr;
+  ctx.beginPath();
+  ctx.moveTo(pad, h-pad); ctx.lineTo(w-pad, h-pad);
+  ctx.moveTo(pad, pad);   ctx.lineTo(pad, h-pad);
+  ctx.stroke();
+
+  const ys = points.map(p=>p.y), min=Math.min(...ys), max=Math.max(...ys);
+  const xStep=(w-2*pad)/(points.length-1), y=v=>h-pad-((v-min)/(max-min||1))*(h-2*pad);
+
+  ctx.beginPath();
+  ctx.lineWidth = 2*dpr;
+  ctx.strokeStyle = '#1a73e8';
+  points.forEach((p,i)=>{ const X=pad+i*xStep, Y=y(p.y); if(i===0) ctx.moveTo(X,Y); else ctx.lineTo(X,Y); });
+  ctx.stroke();
+}
+onResizeDebounced(() => {
+  drawPieChart();
+  drawLineChart();
+  updateProjection();  // this calls drawProjectionChart internally
+});
 
   c.onclick = (e) => {
     const rect = c.getBoundingClientRect();
