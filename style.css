@@ -316,5 +316,18 @@ body {
 /* Chart hover style (cursor) */
 #pieChart, #lineChart, #projectionChart { cursor: pointer; }
 
+/* Make canvases fluid within cards */
+.dashboard-card { overflow: hidden; }
+.dashboard-card canvas {
+  display: block;
+  width: 100%;          /* responsive width */
+  height: auto;         /* keep aspect ratio */
+  max-width: 100%;
+}
+
+/* Optional: give charts breathing room */
+.chart-wrap {
+  padding: 4px 2px 2px;
+}
 
 /* End of styles.css */
