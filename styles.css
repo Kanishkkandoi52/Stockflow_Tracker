@@ -1,0 +1,167 @@
+/* ===== Base layout ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  background-color: #ffffff;
+  color: #111;
+  overflow: hidden;
+}
+
+/* Pure white background */
+.page {
+  min-height: 100vh;
+  background-color: #ffffff;
+  position: relative;
+}
+
+/* ===== Top-left title (mini star + text together) ===== */
+.title-row {
+  position: absolute;
+  top: 30%; /* align with top arm midpoint */
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 5;
+}
+
+.star-small {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.title-text {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+
+/* ===== Center big star ===== */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+.star-big {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 520px; /* fixed size for consistent layout */
+  height: auto;
+  transform: translate(-50%, -50%);
+  display: block;
+}
+
+/* ===== Right-side tagline + buttons ===== */
+.right-panel {
+  position: absolute;
+  top: 45%; /* requested placement */
+  right: 5%; /* requested placement */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  text-align: center;
+}
+
+.tagline {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #111;
+}
+
+/* ===== Buttons (Capitol AI color palette + gradient hover) ===== */
+.cta-btn {
+  width: 180px;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  border: 3px solid #000;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 0 #000;
+  background-color: #fff;
+  background-image: none;
+  background-size: 200% 200%;
+  background-position: center;
+}
+
+.cta-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #000;
+}
+
+/* Primary: Capitol AI blue with animated gradient */
+.primary {
+  background: linear-gradient(135deg, #2e7cf6 0%, #1b5ed2 100%);
+  color: #fff;
+  border-color: #1b5ed2;
+  background-size: 200% 200%;
+}
+
+.primary:hover {
+  background-position: right center;
+  box-shadow: 0 6px 10px rgba(46, 124, 246, 0.3);
+}
+
+/* Secondary: white base with blue text + animated gradient hover */
+.secondary {
+  background-color: #ffffff;
+  color: #2e7cf6;
+  border-color: #2e7cf6;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.secondary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(135deg, #e8f1ff 0%, #bfd8ff 100%);
+  transition: width 0.4s ease;
+  z-index: -1;
+}
+
+.secondary:hover::before {
+  width: 100%;
+}
+
+.secondary:hover {
+  color: #1b5ed2;
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 900px) {
+  .title-row {
+    top: 22%;
+    left: 1.2rem;
+  }
+  .title-text {
+    font-size: 1.7rem;
+  }
+  .star-big {
+    width: 70vw;
+  }
+  .right-panel {
+    top: auto;
+    bottom: 10%;
+    right: 10%;
+    transform: none;
+  }
+}
