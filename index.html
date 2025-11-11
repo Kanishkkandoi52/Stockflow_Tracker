@@ -222,17 +222,31 @@
     <!-- Dashboard -->
     <div class="screen" id="screen-dashboard">
         <div class="dashboard-header">
-            <h1>Your Dashboard</h1>
-            <p>Welcome! Here's your portfolio overview.</p>
-        </div>
+  <h1>Your Dashboard</h1>
+  <div class="dash-tabs" role="tablist" aria-label="Dashboard tabs">
+    <button class="dash-tab active" data-tab="recs" aria-selected="true">Today’s Recommendations</button>
+    <button class="dash-tab" data-tab="highlights">Market Highlights</button>
+  </div>
+</div>
         <div class="dashboard-content">
+            <!-- Today's Recommendations -->
+<div class="dashboard-card" id="todays-recs">
+  <div class="card-header">
+    <h3>Today’s Recommendations</h3>
+    <button class="btn btn-ghost" id="refreshRecsBtn">Refresh</button>
+  </div>
+  <ul class="list" id="recsList"></ul>
+</div>
+
             <div class="dashboard-card" id="portfolio-diversification">
                 <h3>Portfolio Diversification</h3>
-                <div class="chart-placeholder">[Pie Chart]</div>
+<canvas id="pieChart" width="320" height="220" aria-label="Portfolio Diversification"></canvas>
+<p class="muted small">Click a slice to see details.</p>
             </div>
             <div class="dashboard-card" id="performance-graph">
                 <h3>Performance</h3>
-                <div class="chart-placeholder">[Performance Graph]</div>
+<canvas id="lineChart" width="360" height="220" aria-label="Performance"></canvas>
+<p class="muted small">Click the chart for more info.</p>
             </div>
             <div class="dashboard-card" id="market-highlights">
                 <h3>Market Highlights</h3>
@@ -248,5 +262,73 @@
     <div class="tooltip" id="tooltip"></div>
 </div>
 <script src="script.js"></script>
+    <!-- Market Highlights Modal -->
+<div class="modal" id="highlightsModal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="document">
+    <div class="modal-header">
+      <h3>Market Highlights</h3>
+      <button class="icon-btn" id="closeHighlights" aria-label="Close">&times;</button>
+    </div>
+
+    <div class="modal-grid">
+      <!-- SMS toggle -->
+      <section class="modal-card">
+        <h4>SMS Notifications</h4>
+        <p class="muted">Get pre-market & close recaps via text with a link to the full view.</p>
+        <label class="switch">
+          <input type="checkbox" id="smsToggle">
+          <span class="slider"></span>
+        </label>
+        <div class="sms-row" id="smsNumberRow" style="display:none;">
+          <input type="tel" id="smsNumber" placeholder="555-123-4567" />
+          <button class="btn" id="smsSave">Save</button>
+        </div>
+        <p class="fineprint">You’ll receive a one-time message with an app link. Std rates apply.</p>
+      </section>
+
+      <!-- AI summaries -->
+      <section class="modal-card">
+        <h4>AI Summaries</h4>
+        <details open>
+          <summary><strong>General Market</strong> <span class="badge">AI</span></summary>
+          <p id="aiGeneralSummary" class="summary-text"></p>
+        </details>
+        <details>
+          <summary><strong>Personalized</strong> <span class="badge">AI</span></summary>
+          <p id="aiPersonalSummary" class="summary-text"></p>
+        </details>
+        <button class="btn btn-ghost" id="regenSummaries">Regenerate</button>
+      </section>
+
+      <!-- Citations -->
+      <section class="modal-card">
+        <h4>Citations</h4>
+        <ul class="bullets" id="citationsList">
+          <li>NYSE Morning Brief (mock)</li>
+          <li>Sector Heatmap Snapshot (mock)</li>
+          <li>Earnings Calendar (mock)</li>
+        </ul>
+      </section>
+
+      <!-- Mock Portfolio -->
+      <section class="modal-card">
+        <h4>Mock Portfolio — Projected Reach</h4>
+        <div class="inputs">
+          <label>Starting Balance ($) <input type="number" id="startBal" value="5000" min="0"></label>
+          <label>Monthly Contribution ($) <input type="number" id="monthlyContrib" value="300" min="0"></label>
+          <label>Annual Return (%) <input type="number" id="annualReturn" value="7" step="0.1"></label>
+        </div>
+        <canvas id="projectionChart" width="360" height="200" aria-label="Projection"></canvas>
+        <div class="projection-stats">
+          <div><span class="muted">1-Year:</span> <span id="proj1y">$—</span></div>
+          <div><span class="muted">3-Year:</span> <span id="proj3y">$—</span></div>
+          <div><span class="muted">5-Year:</span> <span id="proj5y">$—</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
