@@ -403,10 +403,24 @@ canvas {
 }
 
 .modal-card {
-  background: #fbfdff;
+  background-color: #fff;
   border-radius: 12px;
-  border: 1px solid #e6eefc;
-  padding: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  padding: 20px;
+  margin-bottom: 16px;
+  font-family: 'Inter', sans-serif;
+  color: #344054;
+}
+
+.modal-card h4 {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.modal-card p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 8px;
 }
 
 /* ---------- Form / inputs ---------- */
